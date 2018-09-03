@@ -1,20 +1,33 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View, Text, TouchableHighlight, TextInput } from 'react-native'
-import color from 'color'
-import styles from './styles'
+import PropTypes from 'prop-types';
+import React from 'react';
+import {
+  View, TextInput, TouchableHighlight, Text,
+} from 'react-native';
+import color from 'color';
 
-const InputWithButton = (props) => {
-  const { onPress, buttonText, editable = true } = props
-  
+import styles from './styles';
+
+const InputWithButton = ({
+  editable,
+  onPress,
+  buttonText,
+  textColor,
+  ...props
+}) => {
   const underlayColor = color(styles.$buttonBackgroundColorBase).darken(
-    styles.$buttonBackgroundColorModifier
-  )
+    styles.$buttonBackgroundColorModifier,
+  );
 
-  const containerStyles = [styles.container]
-  if (!editable) {
-    containerStyles.push(styles.containerDisabled)
+  const containerStyles = [styles.container];
+  if (editable === false) {
+    containerStyles.push(styles.containerDisabled);
   }
+
+  const buttonTextStyles = [styles.buttonText];
+  if (textColor) {
+    buttonTextStyles.push({ color: props.textColor });
+  }
+
   return (
     <View style={containerStyles}>
       <TouchableHighlight
@@ -22,18 +35,19 @@ const InputWithButton = (props) => {
         style={styles.buttonContainer}
         underlayColor={underlayColor}
       >
-        <Text style={styles.buttonText}>{buttonText}</Text>
+        <Text style={buttonTextStyles}>{buttonText}</Text>
       </TouchableHighlight>
       <View style={styles.separator} />
-      <TextInput style={styles.input} underlineColorAndroid='transparent' {...props} />
+      <TextInput style={styles.input} underlineColorAndroid="transparent" {...props} />
     </View>
-  )
-}
+  );
+};
 
 InputWithButton.propTypes = {
   onPress: PropTypes.func,
   buttonText: PropTypes.string,
-  editable: PropTypes.bool
-}
+  editable: PropTypes.bool,
+  textColor: PropTypes.string,
+};
 
-export default InputWithButton
+export default InputWithButton;

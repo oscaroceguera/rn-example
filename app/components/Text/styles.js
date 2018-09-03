@@ -1,12 +1,9 @@
-import EStyleSheet from 'react-native-extended-stylesheet'
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-const styles = EStyleSheet.create({
+export default EStyleSheet.create({
   smallText: {
     color: '$white',
+    textAlign: 'center',
     fontSize: 12,
-    textAlign: 'center'
-
-  }
-})
-
-export default styles
+  },
+});
